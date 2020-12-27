@@ -141,13 +141,74 @@ or of you ignore providing language codes:
 
 **Code** : `200`
 
-**Content example**
-
+**Content**
 ```javascript
-{
-    ""
+{   
+    "queries":QueryTable[],
+    "unknown":Unknown[];
 }
 ```
+where
+
+*QueryWithSchema*
+```javascript
+{
+        
+    "from":string[], // From what schema keys do this query originate from
+    "query":QueryCompare|QueryAnd|QueryOr
+}
+```
+
+*QueryCompare*
+```javascript
+{
+    "compare": Compare
+}
+```
+
+*Compar* 
+```javascript 
+{
+    "key":string,
+    "lt": number,
+    "lte": number,
+    "gt":  number,
+    "gte": number,
+    "eq": string|number
+} 
+```
+*key* will always exist. Only one of the other properties will exist (the other ones must be null)
+
+*QueryAnd*
+```javascript
+{
+    "and": QueryCompare|QueryAnd|QueryOr[],
+}
+```
+*QueryOr*
+```javascript
+{
+    "or": QueryCompare|QueryAnd|QueryOr[],
+}
+```
+
+*Unknown*
+```javascript
+{
+    "start":number, // Start index (including)
+    "end":number // End index (excluding)
+}
+```
+The *Unkown* object describes the start and the end indices of the parts of the query text that has not been understood. 
+For example 
+```javascript
+{
+    "start" :  0
+    "end" : 1
+}
+```
+means that the first character is unkown.
+
 
 ## Error Responses
 
