@@ -144,7 +144,7 @@ or of you ignore providing language codes:
 **Content**
 ```javascript
 {   
-    "queries": QueryTable[],
+    "queries": QueryWithSchema[],
     "unknown": Unknown[];
 }
 ```
