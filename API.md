@@ -19,10 +19,12 @@ The schemas below are provided in Javascript format.
 - [key:A]:B is intepreted as a map, with a key of type A with the value of type B
 
 
+The object to send is
+
 ```javascript
 {
-    "text": string, 
-    "schemas" : Schema[] 
+    "text": string, // The search/query text
+    "schemas" : Schema[] // The schemas that describe your database
 }
 ```
 where 
@@ -30,8 +32,8 @@ where
 *Schema*
 ```javascript
 {
-    "name": KeyWithDescriptions,
-    "fields": Field[]
+    "name": KeyWithDescriptions, // The description of the schema name
+    "fields": Field[] 
 }
 ```
 
@@ -39,7 +41,7 @@ where
 ```javascript
 {
     "key": string
-    "description": SimpleDescription // The translation
+    "description": SimpleDescription // The description of the field 
     "domain": StandardDomainType | EnumDomain // Defines possible values
 }
 ```
@@ -56,6 +58,7 @@ where
 ```javascript
 { [key: LanguageCode]: string[] | string } | string[] | string
 ```
+The *SimpleDescription* object is where the translation of your data is defined. It is important that you consider what languages and how many different types of words you want to support. 
 
 *SimpleDescription* can take 3 forms: 
 
@@ -64,6 +67,9 @@ where
 - Descriptions are provided as a list of strings. ANY language is assumed for all the descriptions of the array. 
 
 - If one description is provided as a string, then ANY language is assumed for that description
+
+The Quantleaf Query API does not currently look at similiar word to word translations (but this something that is going to be implemented), which means you have to provide all the words that the user might write (and that you want to capture). This means that if you want to describe the color 'red' in english, you would want to write 'red', 'crimson', 'maroon' as descriptions.  
+It is important that you spell right if you want an accurate translations. 
 
 *LanguageCode* 
 ```javascript
@@ -106,7 +112,7 @@ or of you ignore providing language codes:
 ```
 
 
-**Body example** All fields must be sent.
+**Body example** 
 
 ```javascript
 {
@@ -131,13 +137,13 @@ or of you ignore providing language codes:
 
 ## Success Response
 
-**Condition** : If everything is OK and an Account didn't exist for this User.
+**Condition** : 
 
 **Code** : `200`
 
 **Content example**
 
-```json
+```javascript
 {
     ""
 }
