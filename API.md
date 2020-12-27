@@ -137,7 +137,7 @@ or of you ignore providing language codes:
 
 ## Success Response
 
-**Condition** : 
+**Condition** : Request processed without errors
 
 **Code** : `200`
 
