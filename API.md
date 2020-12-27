@@ -2,7 +2,7 @@
 
 In this endpoint you provide the described schema, and the query text, and the result will be the interpreted query (in the generalized format)
 
-**URL** : `https://api.query.quantleaf.com/query`
+**URL** : `https://xxxxxxxxxxxxxxx`
 
 **Method** : `POST`
 
@@ -24,7 +24,7 @@ The object to send is
 ```javascript
 {
     "text": string, // The search/query text
-    "schemas" : Schema[] // The schemas that describe your database
+    "schemas": Schema[] // The schemas that describe your database
 }
 ```
 where 
@@ -144,8 +144,8 @@ or of you ignore providing language codes:
 **Content**
 ```javascript
 {   
-    "queries":QueryTable[],
-    "unknown":Unknown[];
+    "queries": QueryTable[],
+    "unknown": Unknown[];
 }
 ```
 where
@@ -154,8 +154,8 @@ where
 ```javascript
 {
         
-    "from":string[], // From what schema keys do this query originate from
-    "query":QueryCompare|QueryAnd|QueryOr
+    "from": string[], // From what schema keys do this query originate from
+    "query": QueryCompare | QueryAnd | QueryOr
 }
 ```
 
@@ -166,45 +166,45 @@ where
 }
 ```
 
-*Compar* 
+*Compare* 
 ```javascript 
 {
-    "key":string,
+    "key": string,
     "lt": number,
     "lte": number,
-    "gt":  number,
+    "gt": number,
     "gte": number,
     "eq": string|number
 } 
 ```
-*key* will always exist. Only one of the other properties will exist (the other ones must be null)
+*key* will always exist. Only one of the other properties can exist (the other ones must be null)
 
 *QueryAnd*
 ```javascript
 {
-    "and": QueryCompare|QueryAnd|QueryOr[],
+    "and": QueryCompare | QueryAnd | QueryOr[],
 }
 ```
 *QueryOr*
 ```javascript
 {
-    "or": QueryCompare|QueryAnd|QueryOr[],
+    "or": QueryCompare | QueryAnd | QueryOr[],
 }
 ```
 
 *Unknown*
 ```javascript
 {
-    "start":number, // Start index (including)
-    "end":number // End index (excluding)
+    "start": number, // Start index (including)
+    "end": number // End index (excluding)
 }
 ```
 The *Unkown* object describes the start and the end indices of the parts of the query text that has not been understood. 
 For example 
 ```javascript
 {
-    "start" :  0
-    "end" : 1
+    "start": 0
+    "end": 1
 }
 ```
 means that the first character is unkown.
