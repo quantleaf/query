@@ -14,9 +14,9 @@ In this endpoint you provide the described schema, and the query text, and the r
 
 Provied the query and your schemas.
 
-```json
+```javascript
 {
-    "text": string, // This is the natural language search text
+    "text": string, 
     "schemas" : Schema[] // Array of Schema objects
 }
 ```
