@@ -16,7 +16,7 @@ The schemas below are provided in Javascript format.
 - '|' means OR, 
 - The value after the semicolon (:) denotes the type of the field.
 - 'A[]' means an array of objects of type *A* 
-- [key:A]:B is intepreted as a map, with a key of type A with the value of type B
+- '{[key:A]:B}' is intepreted as a map, with a key of type A with the value of type B
 
 
 The object to send is
@@ -182,13 +182,13 @@ where
 *QueryAnd*
 ```javascript
 {
-    "and": QueryCompare | QueryAnd | QueryOr[],
+    "and": (QueryCompare | QueryAnd | QueryOr)[]
 }
 ```
 *QueryOr*
 ```javascript
 {
-    "or": QueryCompare | QueryAnd | QueryOr[],
+    "or": (QueryCompare | QueryAnd | QueryOr)[]
 }
 ```
 
