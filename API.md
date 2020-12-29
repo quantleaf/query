@@ -1,4 +1,4 @@
-# Translate text to query format
+# Endpoint: Translate text to query format
 
 In this endpoint you provide the described schema, and the query text, and the result will be the interpreted query (in the generalized format)
 
@@ -21,12 +21,12 @@ The schemas below are provided in Javascript format.
 ---
 
 
-### Object (the request object)
+### Entity (the request object)
 ```javascript
 {
     "text": string, 
     "schemas": Schema[] 
-    "languageFilter":LanguageCode[];
+    "languageFilter":LanguageCode[]
     "fuzzy": boolean
 
 }
@@ -34,52 +34,79 @@ The schemas below are provided in Javascript format.
 
 *text* 
 
-The query text
+The query text.
 
 *schemas*
 
-The schema objects, defining you database structure
+The schema objects, defining you database structure.
 
 *languageFilter (Optional)*
 
-Specify allowed languages
+Specify allowed languages. Default is all languages.
 
 *fuzzy (Optional)*
 
-If true, then we allow spelling erros of 25% amount
+If true, then we allow spelling erros of 25% amount. 
+If false, no spelling errors allowed.
 
 
 ---
-### Object 
-*Schema*
+### Entity *Schema*
 ```javascript
 {
-    "name": KeyWithDescriptions, // The description of the schema name
+    "name": KeyWithDescriptions
     "fields": Field[] 
 }
 ```
+*name* 
+
+The name of the schema. This lets the translation tool to understand if a user is mentioning a certain data type
+
+*fields* 
+
+The fields of the schema
+
 ---
-### Object 
-*Field*
+### Entity *Field*
 ```javascript
 {
     "key": string
-    "description": SimpleDescription // The description of the field 
-    "domain": StandardDomainType | EnumDomain // Defines possible values
+    "description": SimpleDescription 
+    "domain": StandardDomainType | EnumDomain 
 }
 ```
+*key* 
+
+The key, i.e. the symbol you denote the variable to in a programming context.
+
+*description* 
+
+The description of the field.
+
+*domain*
+
+The domain defines what values are allowed for this field.
+
 ---
-### Object 
-*KeyWithDescriptions*
+### Entity *KeyWithDescriptions*
 ```javascript
 {
     "key": string
-    "description": SimpleDescription // The translation
+    "description": SimpleDescription 
 }
 ```
+
+*key* 
+
+The key, i.e. the symbol you denote the variable to in a programming context.
+
+*description* 
+
+The description.
+
+
 ---
-### Type 
-*SimpleDescription*
+### Entity *SimpleDescription*
 ```javascript
 { [key: LanguageCode]: string[] | string } | string[] | string
 ```
@@ -97,21 +124,18 @@ The Quantleaf Query API does not currently look at similiar word to word transla
 It is important that you spell right if you want an accurate translations. 
 
 ---
-### Type
-*LanguageCode* 
+### Entity *LanguageCode* 
 ```javascript
 'EN' | 'SWE' | 'ANY' 
 ```
 
 ---
-### Type
-*StandardDomainType* 
+### Entity *StandardDomainType* 
 ```javascript
 'DATE' | 'NUMBER' | 'STRING'
 ```
 ---
-### Type
-*EnumDomain*
+### Entity *EnumDomain*
 ```javascript
 [enumValue: string]: SimpleDescription
 ```
@@ -141,7 +165,7 @@ or of you ignore providing language codes:
 ```
 
 
-**Body example** 
+## Example request
 
 ```javascript
 {
@@ -163,6 +187,12 @@ or of you ignore providing language codes:
     }]
 }
 ```
+This example describes a schema with two fields, which is of enum type and have the same domain (city locations).
+The key describes the value which the user use to denote the field.
+In this case the API will understand that 
+'from Stockholm' means thay the field we are interested in is with key 'from', and that the value is in the domain, and is Stockholm.
+
+`fuzzy` and `languageFilter` have been omitted hence assumed to be the default values.
 
 ## Success Response
 
@@ -171,31 +201,53 @@ or of you ignore providing language codes:
 **Code** : `200`
 
 **Content**
+### Entity (Request response)
 ```javascript
 {   
     "queries": QueryWithSchema[],
     "unknown": Unknown[];
 }
 ```
-where
 
-*QueryWithSchema*
+`queries`
+
+All the translated queries
+
+`unkown`
+
+The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unkown, for example 
+'I want the price to be less than 10 dollar' will have three unknown sections 'I want the', 'to be' (because the words does not provide any value) and 'dollar' since the API currently does not support currencies.
+
+
+---
+### Entity *QueryWithSchema*
 ```javascript
 {
         
-    "from": string[], // From what schema keys do this query originate from
+    "from": string[], 
     "query": QueryCompare | QueryAnd | QueryOr
 }
 ```
+*from*
 
-*QueryCompare*
+From what schema keys do this query originate from. This can be multiple keys since if your provide multiple schemas and if the fields *overlap* the same query could be feasible for different schemas at once.
+
+*query*
+
+The query object contains all information about the query
+
+---
+
+### Entity *QueryCompare*
 ```javascript
 {
     "compare": Compare
 }
 ```
 
-*Compare* 
+---
+
+### Entity *Compare* 
 ```javascript 
 {
     "key": string,
@@ -205,40 +257,103 @@ where
     "gte": number,
     "eq": string|number
 } 
-```
-*key* will always exist. Only one of the other properties can exist (the other ones must be null)
 
-*QueryAnd*
+```
+
+
+`key`
+
+Will always exist.
+
+`lt`
+
+Less than.
+
+`lte`
+
+Less than or equal to.
+
+
+`gt`
+
+Greater than.
+
+`gte`
+
+Greater than or equal to.
+
+`eq`
+
+Equal to.
+
+ > Note: *`key`* will alway exist, but only one of the other properties can exist
+
+
+
+
+---
+
+### Entity *QueryAnd*
 ```javascript
 {
     "and": (QueryCompare | QueryAnd | QueryOr)[]
 }
 ```
-*QueryOr*
+
+
+`and`
+
+Eeach element of the array is 'and' conditional.
+
+
+---
+
+### Entity *QueryOr*
 ```javascript
 {
     "or": (QueryCompare | QueryAnd | QueryOr)[]
 }
 ```
 
-*Unknown*
+`or`
+
+Eeach element of the array is 'or' conditional.
+
+---
+
+### Entity *Unknown*
+
+Unkown text location
 ```javascript
 {
-    "start": number, // Start index (including)
-    "end": number // End index (excluding)
+    "start": number, 
+    "end": number 
 }
 ```
-The *Unkown* object describes the start and the end indices of the parts of the query text that has not been understood. 
-For example 
-```javascript
-{
-    "start": 0
-    "end": 1
-}
-```
-means that the first character is unkown.
 
 
+`start`
+
+Start index (including)
+
+`end`
+
+End index (excluding)
+
+
+> Note: The *Unkown* object describes the start and the end indices of the parts of the query text that has not been understood. For example 
+>```javascript
+>{
+>    "start": 0
+>    "end": 1
+>}
+>```
+>means that the first character is unknown.
+
+
+
+
+---
 ## Error Responses
 
 **Condition** : Not authorized, bad or non existing API key
