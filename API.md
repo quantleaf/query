@@ -261,7 +261,7 @@ The query object contains all information about the query
     "lte": number,
     "gt": number,
     "gte": number,
-    "eq": string|number
+    "eq": string | number
 } 
 
 ```
