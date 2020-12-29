@@ -18,9 +18,10 @@ The schemas below are provided in Javascript format.
 - 'A[]' means an array of objects of type *A* 
 - '{[key:A]:B}' is intepreted as a map, with a key of type A with the value of type B
 
+---
 
-The object to send is
 
+### Object (the request object)
 ```javascript
 {
     "text": string, 
@@ -30,21 +31,26 @@ The object to send is
 
 }
 ```
+
 *text* 
+
 The query text
 
 *schemas*
+
 The schema objects, defining you database structure
 
 *languageFilter (Optional)*
+
 Specify allowed languages
 
 *fuzzy (Optional)*
+
 If true, then we allow spelling erros of 25% amount
 
 
-where 
-
+---
+### Object 
 *Schema*
 ```javascript
 {
@@ -52,7 +58,8 @@ where
     "fields": Field[] 
 }
 ```
-
+---
+### Object 
 *Field*
 ```javascript
 {
@@ -61,7 +68,8 @@ where
     "domain": StandardDomainType | EnumDomain // Defines possible values
 }
 ```
-
+---
+### Object 
 *KeyWithDescriptions*
 ```javascript
 {
@@ -69,7 +77,8 @@ where
     "description": SimpleDescription // The translation
 }
 ```
-
+---
+### Type 
 *SimpleDescription*
 ```javascript
 { [key: LanguageCode]: string[] | string } | string[] | string
@@ -87,17 +96,21 @@ The *SimpleDescription* object is where the translation of your data is defined.
 The Quantleaf Query API does not currently look at similiar word to word translations (but this something that is going to be implemented), which means you have to provide all the words that the user might write (and that you want to capture). This means that if you want to describe the color 'red' in english, you would want to write 'red', 'crimson', 'maroon' as descriptions.  
 It is important that you spell right if you want an accurate translations. 
 
+---
+### Type
 *LanguageCode* 
 ```javascript
 'EN' | 'SWE' | 'ANY' 
 ```
 
-
+---
+### Type
 *StandardDomainType* 
 ```javascript
 'DATE' | 'NUMBER' | 'STRING'
 ```
-
+---
+### Type
 *EnumDomain*
 ```javascript
 [enumValue: string]: SimpleDescription
