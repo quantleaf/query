@@ -209,14 +209,14 @@ In this case the API will understand that
 }
 ```
 
-`queries`
+*queries*
 
 All the translated queries
 
-`unkown`
+*unkown*
 
 The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unkown, for example 
-'I want the price to be less than 10 dollar' will have three unknown sections 'I want the', 'to be' (because the words does not provide any value) and 'dollar' since the API currently does not support currencies.
+'I want the price to be less than 10 dollar' will have three unknown sections 'I want the' and 'to be' (because the words does not provide any value) and 'dollar' since the API currently does not support currencies associated directly with numeric values. 
 
 
 ---
@@ -261,32 +261,32 @@ The query object contains all information about the query
 ```
 
 
-`key`
+*key*
 
 Will always exist.
 
-`lt`
+*lt*
 
 Less than.
 
-`lte`
+*lte*
 
 Less than or equal to.
 
 
-`gt`
+*gt*
 
 Greater than.
 
-`gte`
+*gte*
 
 Greater than or equal to.
 
-`eq`
+*eq*
 
 Equal to.
 
- > Note: *`key`* will alway exist, but only one of the other properties can exist
+ > Note: *key* will alway exist, but only one of the other properties can exist
 
 
 
@@ -301,7 +301,7 @@ Equal to.
 ```
 
 
-`and`
+*and*
 
 Eeach element of the array is 'and' conditional.
 
@@ -315,7 +315,7 @@ Eeach element of the array is 'and' conditional.
 }
 ```
 
-`or`
+*or*
 
 Eeach element of the array is 'or' conditional.
 
@@ -332,11 +332,11 @@ Unkown text location
 ```
 
 
-`start`
+*start*
 
 Start index (including)
 
-`end`
+*end*
 
 End index (excluding)
 
