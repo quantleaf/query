@@ -18,7 +18,7 @@ You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-sd
 
 ### Any programming language
 You can use our API directly to perform (1) and (2). 
-Read the [API documentation]
+Read the [API documentation](API.md)
 
 
 ## Questions, feature requests, problems? 
