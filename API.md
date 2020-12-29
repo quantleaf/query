@@ -23,10 +23,26 @@ The object to send is
 
 ```javascript
 {
-    "text": string, // The search/query text
-    "schemas": Schema[] // The schemas that describe your database
+    "text": string, 
+    "schemas": Schema[] 
+    "languageFilter":LanguageCode[];
+    "fuzzy": boolean
+
 }
 ```
+*text* 
+The query text
+
+*schemas*
+The schema objects, defining you database structure
+
+*languageFilter (Optional)*
+Specify allowed languages
+
+*fuzzy (Optional)*
+If true, then we allow spelling erros of 25% amount
+
+
 where 
 
 *Schema*
