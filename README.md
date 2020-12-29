@@ -14,7 +14,7 @@ The project is currently in demo phase. This means that API could undergo breaki
 Create and account and request an API key at [account.quantleaf.com](https://account.quantleaf.com)
 
 ### Node
-You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-node) to perform (1) and (2).
+You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-sdk-node) to perform (1) and (2).
 
 ### Any programming language
 You can use our API directly to perform (1) and (2). 
