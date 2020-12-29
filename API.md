@@ -125,21 +125,27 @@ It is important that you spell right if you want an accurate translations.
 
 ---
 ### Entity *LanguageCode* 
+The supported language codes
+
 ```javascript
 'EN' | 'SWE' | 'ANY' 
 ```
 
 ---
 ### Entity *StandardDomainType* 
+The supported domains by type
+
 ```javascript
 'DATE' | 'NUMBER' | 'STRING'
 ```
 ---
 ### Entity *EnumDomain*
+
+An enum domain is a map where each key represents the enum value key, and the value is a *SimpleDescription* which provides the translation for the key. This lets you control the value of the field by providing a list of feasible string values for a *enumValue* key. 
+
 ```javascript
 [enumValue: string]: SimpleDescription
 ```
-An enum domain is a map where each key represents the enum value key, and the value is a *SimpleDescription* which provides the translation for the key. This lets you control the value of the field by providing a list of feasible string values for a *enumValue* key. 
 
 For example an *EnumDomain* could be 
 ```javascript
@@ -190,9 +196,9 @@ or of you ignore providing language codes:
 This example describes a schema with two fields, which is of enum type and have the same domain (city locations).
 The key describes the value which the user use to denote the field.
 In this case the API will understand that 
-'from Stockholm' means thay the field we are interested in is with key 'from', and that the value is in the domain, and is Stockholm.
+'from Stockholm' means thay the field we are interested in is with the key 'from', and that the value is Stockholm which is in the domain.
 
-`fuzzy` and `languageFilter` have been omitted hence assumed to be the default values.
+The fields *fuzzy* and *languageFilter* have been omitted hence assumed to be the default values.
 
 ## Success Response
 
@@ -303,7 +309,7 @@ Equal to.
 
 *and*
 
-Eeach element of the array is 'and' conditional.
+Each element of the array is 'and' conditional.
 
 
 ---
@@ -317,7 +323,7 @@ Eeach element of the array is 'and' conditional.
 
 *or*
 
-Eeach element of the array is 'or' conditional.
+Each element of the array is 'or' conditional.
 
 ---
 
