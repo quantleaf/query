@@ -391,8 +391,8 @@ End index (excluding)
 
 
 ## Example response
-From the **Exampel Request** this was the response (the API was at used 2021-01-03).
-(*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks"*)
+From the **Exampel Request** this was the response (the API was at used 2021-01-03. The request took 310 ms to perform).
+*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks"*
 
 ```javascript
 {
