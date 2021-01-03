@@ -29,7 +29,7 @@ The schemas below are provided in Javascript format.
 {
     "text": string, 
     "schemas": Schema[] 
-    "languageFilter":LanguageCode[]
+    "languageFilter": LanguageCode[]
     "fuzzy": boolean
 
 }
@@ -186,7 +186,7 @@ or of you ignore providing language codes:
 
 ```javascript
 {
-    "text": "Train ticket from Stockholm to London", 
+    "text": "I want to buy a train ticket from stockholm to londo or paris 10 days from now", 
     "schemas" : [{
         "name": {
             "key": "train-ticket",
@@ -202,6 +202,11 @@ or of you ignore providing language codes:
                 "key": "to",
                 "description" : "To",
                 "domain": ["Stockholm", "London", "Paris"]
+            },
+            {
+                "key": "from",
+                "description" : ["From","When","Date of departure"],
+                "domain": "DATE"
             }
         ]
     }]
@@ -371,6 +376,58 @@ End index (excluding)
 >means that the first character is unknown.
 
 
+## Example response
+From the **Exampel Request** this was the response (the API was used 2021-01-03).
+
+```javascript
+{
+    "queries": [
+        {
+            "from": [
+                "train-ticket"
+            ],
+            "query": {
+                "and": [
+                    {
+                        "compare": {
+                            "key": "to",
+                            "eq": "Stockholm"
+                        }
+                    },
+                    {
+                        "or": [
+                            {
+                                "compare": {
+                                    "key": "to",
+                                    "eq": "London"
+                                }
+                            },
+                            {
+                                "compare": {
+                                    "key": "to",
+                                    "eq": "Paris"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "compare": {
+                            "key": "from",
+                            "eq": 1610553856000
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "unknown": [
+        {
+            "start": 0,
+            "end": 6
+        }
+    ]
+}
+```
 
 
 ---
