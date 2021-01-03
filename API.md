@@ -186,7 +186,7 @@ or of you ignore providing language codes:
 
 ```javascript
 {
-    "text": "I want to buy a train ticket from stockholm to london or paris 10 days from now", 
+    "text": "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks", 
     "schemas" : [{
         "name": {
             "key": "train-ticket",
@@ -199,6 +199,14 @@ or of you ignore providing language codes:
                 "domain": ["Stockholm", "London", "Paris"]
             },
             {
+                "key": "currency",
+                "description" : "From",
+                "domain": {
+                    "SEK": ["SEK","kronor"],
+                    "USD": ["USD","dollar","bucks"]
+                }
+            },
+            {
                 "key": "to",
                 "description" : "To",
                 "domain": ["Stockholm", "London", "Paris"]
@@ -207,6 +215,11 @@ or of you ignore providing language codes:
                 "key": "from",
                 "description" : ["From","When","Date of departure"],
                 "domain": "DATE"
+            },
+            {
+                "key": "price",
+                "description" : ["Price", "pris"],
+                "domain": "NUMBER"
             }
         ]
     }]
@@ -379,7 +392,7 @@ End index (excluding)
 
 ## Example response
 From the **Exampel Request** this was the response (the API was at used 2021-01-03).
-(*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now"*)
+(*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks"*)
 
 ```javascript
 {
@@ -415,7 +428,19 @@ From the **Exampel Request** this was the response (the API was at used 2021-01-
                     {
                         "compare": {
                             "key": "from",
-                            "eq": 1610561218000
+                            "eq": 1610562689000
+                        }
+                    },
+                    {
+                        "compare": {
+                            "key": "price",
+                            "lt": 100
+                        }
+                    },
+                    {
+                        "compare": {
+                            "key": "currency",
+                            "eq": "USD"
                         }
                     }
                 ]
@@ -426,6 +451,10 @@ From the **Exampel Request** this was the response (the API was at used 2021-01-
         {
             "start": 0,
             "end": 15
+        },
+        {
+            "start": 80,
+            "end": 83
         }
     ]
 }
