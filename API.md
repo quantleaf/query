@@ -200,7 +200,7 @@ or of you ignore providing language codes:
             },
             {
                 "key": "currency",
-                "description" : "From",
+                "description" : "Currency",
                 "domain": {
                     "SEK": ["SEK","kronor"],
                     "USD": ["USD","dollar","bucks"]
