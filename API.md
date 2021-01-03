@@ -18,7 +18,10 @@ The schemas below are provided in Javascript format.
 - 'A[]' means an array of objects of type *A* 
 - '{[key:A]:B}' is intepreted as a map, with a key of type A with the value of type B
 
+>All **limitations** below are *soft limitations*. What this means is that they might and can be increased.
+
 ---
+
 
 
 ### Entity (the request object)
@@ -35,10 +38,12 @@ The schemas below are provided in Javascript format.
 *text* 
 
 The query text.
+**Limitation: max 1000 characters**
 
 *schemas*
 
 The schema objects, defining you database structure.
+**Limitations: Max 10 schemas**
 
 *languageFilter (Optional)*
 
@@ -49,6 +54,7 @@ Specify allowed languages. Default is all languages.
 If true, then we allow spelling erros of 25% amount. 
 If false, no spelling errors allowed.
 
+> Note: Latency is highly dependent of schemas and schema fields used. Performance might potentielly improve by introducing language filters and/or set the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
 
 ---
 ### Entity *Schema*
@@ -64,7 +70,9 @@ The name of the schema. This lets the translation tool to understand if a user i
 
 *fields* 
 
-The fields of the schema
+The fields of the schema. 
+**Limitations: Max 100 fields.** 
+> Note: Latency is highly dependent of the number of fields used.
 
 ---
 ### Entity *Field*
@@ -136,7 +144,7 @@ The supported language codes
 The supported domains by type
 
 ```javascript
-'DATE' | 'NUMBER' | 'STRING'
+'DATE' | 'NUMBER' | 'TEXT'
 ```
 ---
 ### Entity *EnumDomain*
@@ -177,10 +185,13 @@ or of you ignore providing language codes:
 {
     "text": "Train ticket from Stockholm to London", 
     "schemas" : [{
-        "name": "Train ticket",
+        "name": {
+            "key": "train-ticket",
+            "description": "Train ticket"
+        },
         "fields": [
             {
-                "key": "from"
+                "key": "from",
                 "description" : "From",
                 "domain": ["Stockholm", "London", "Paris"]
             },
@@ -370,7 +381,7 @@ End index (excluding)
 
 ### Or
 
-**Condition** : Bad request
+**Condition** : Bad request, too many schemas or fields per schema, or too long query text.
 
 **Code** : `400 BAD REQUEST`
 
