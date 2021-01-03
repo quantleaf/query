@@ -186,7 +186,7 @@ or of you ignore providing language codes:
 
 ```javascript
 {
-    "text": "I want to buy a train ticket from stockholm to londo or paris 10 days from now", 
+    "text": "I want to buy a train ticket from stockholm to london or paris 10 days from now", 
     "schemas" : [{
         "name": {
             "key": "train-ticket",
@@ -312,6 +312,7 @@ Greater than or equal to.
 Equal to.
 
  > Note: *key* will alway exist, but only one of the other properties can exist
+    Dates are represented with a number which represents milliseconds since Unix epoch.
 
 
 
@@ -377,7 +378,8 @@ End index (excluding)
 
 
 ## Example response
-From the **Exampel Request** this was the response (the API was used 2021-01-03).
+From the **Exampel Request** this was the response (the API was at used 2021-01-03).
+(*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now"*)
 
 ```javascript
 {
@@ -390,7 +392,7 @@ From the **Exampel Request** this was the response (the API was used 2021-01-03)
                 "and": [
                     {
                         "compare": {
-                            "key": "to",
+                            "key": "from",
                             "eq": "Stockholm"
                         }
                     },
@@ -413,7 +415,7 @@ From the **Exampel Request** this was the response (the API was used 2021-01-03)
                     {
                         "compare": {
                             "key": "from",
-                            "eq": 1610553856000
+                            "eq": 1610561218000
                         }
                     }
                 ]
@@ -423,7 +425,7 @@ From the **Exampel Request** this was the response (the API was used 2021-01-03)
     "unknown": [
         {
             "start": 0,
-            "end": 6
+            "end": 15
         }
     ]
 }
