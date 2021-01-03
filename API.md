@@ -2,7 +2,7 @@
 
 In this endpoint you provide the described schema, and the query text, and the result will be the interpreted query (in the generalized format)
 
-**URL** : `https://xxxxxxxxxxxxxxx`
+**URL** : `https://api.query.quantleaf.com/query`
 
 **Method** : `POST`
 
