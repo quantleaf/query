@@ -18,7 +18,7 @@ The schemas below are provided in Javascript format.
 - 'A[]' means an array of objects of type *A* 
 - '{[key:A]:B}' is intepreted as a map, with a key of type A with the value of type B
 
->All **limitations** below are *soft limitations*. What this means is that they might and can be increased.
+>All **limitations** below are *soft limitations*. What this means is that they can and might be increased.
 
 ---
 
@@ -38,12 +38,12 @@ The schemas below are provided in Javascript format.
 *text* 
 
 The query text.
-**Limitation: max 1000 characters**
+**Limitation: max 1000 characters.**
 
 *schemas*
 
 The schema objects, defining you database structure.
-**Limitations: Max 10 schemas**
+**Limitation: Max 10 schemas.**
 
 *languageFilter (Optional)*
 
@@ -71,7 +71,7 @@ The name of the schema. This lets the translation tool to understand if a user i
 *fields* 
 
 The fields of the schema. 
-**Limitations: Max 100 fields.** 
+**Limitation: Max 100 fields.** 
 > Note: Latency is highly dependent of the number of fields used.
 
 ---
@@ -154,6 +154,9 @@ An enum domain is a map where each key represents the enum value key, and the va
 ```javascript
 [enumValue: string]: SimpleDescription
 ```
+
+**Limitation: Max 100 enum value keys, 100 translations for each key for each language. One transation can max have 30 characters.** 
+
 
 For example an *EnumDomain* could be 
 ```javascript
