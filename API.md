@@ -32,7 +32,6 @@ The schemas below are provided in Javascript format.
     "languageFilter": LanguageCode[]
     "fuzzy": boolean
     "concurrencySize": number
-
 }
 ```
 
@@ -52,7 +51,8 @@ Specify allowed languages. Default is all languages.
 
 *fuzzy (Optional)*
 
-If true, then we allow spelling erros of 25% amount. 
+If true, then we allow spelling erros of 25% amount. The spelling error can only occur on the end of the words. 
+
 If false, no spelling errors allowed.
 
 
