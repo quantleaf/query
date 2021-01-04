@@ -31,6 +31,7 @@ The schemas below are provided in Javascript format.
     "schemas": Schema[] 
     "languageFilter": LanguageCode[]
     "fuzzy": boolean
+    "concurrencySize": number
 
 }
 ```
@@ -39,14 +40,6 @@ The schemas below are provided in Javascript format.
 
 The query text.
 **Limitation: max 1000 characters.**
-
-*concurrencySize* 
-
-This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be quired upon. 
-
-Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
-
-The query text.
 
 
 *schemas*
@@ -62,7 +55,15 @@ Specify allowed languages. Default is all languages.
 If true, then we allow spelling erros of 25% amount. 
 If false, no spelling errors allowed.
 
-**Limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
+
+*concurrencySize* 
+
+This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be quired upon. 
+
+Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
+
+
+**Overall Limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
 
 > Note: Latency is highly dependent of the amount and type of schemas and schema fields used. Performance might potentielly improve by introducing language filters and/or set the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
 
@@ -239,7 +240,7 @@ The key describes the value which the user use to denote the field.
 In this case the API will understand that 
 'from Stockholm' means thay the field we are interested in is with the key 'from', and that the value is Stockholm which is in the domain.
 
-The fields *fuzzy* and *languageFilter* have been omitted hence assumed to be the default values.
+The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hence assumed to be the default values.
 
 ## Success Response
 
