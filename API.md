@@ -55,8 +55,7 @@ If true, then we allow spelling erros of 25% amount. The spelling error can only
 
 If false, no spelling errors allowed.
 
-
-*concurrencySize* 
+*concurrencySize (Optional* 
 
 This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be quired upon. 
 
