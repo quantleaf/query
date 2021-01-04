@@ -57,14 +57,16 @@ If false, no spelling errors allowed.
 
 *concurrencySize (Optional* 
 
-This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be quired upon. 
+This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be queried upon. 
 
 Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
 
+With a value of 1 you can still make multiple queries per query text, but one query can only refer to one schema.
 
-**Overall Limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
 
-> Note: Latency is highly dependent of the amount and type of schemas and schema fields used. Performance might potentielly improve by introducing language filters and/or set the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
+**Overall limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
+
+> Note: Latency is highly dependent of the total amount of schema fields. Performance might potentielly improve by introducing language filters and/or set the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
 
 ---
 ### Entity *Schema*
@@ -277,7 +279,7 @@ The not understood parts of the query text. This field lets you create fallback 
 ```
 *from*
 
-From what schema keys do this query originate from. This can be multiple keys since if your provide multiple schemas and if the fields *overlap* the same query could be feasible for different schemas at once.
+From what schema keys do this query originate from. This can be at most *concurrencySize* (property of the request) amount of keys. 
 
 *query*
 
