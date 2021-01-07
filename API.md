@@ -2,7 +2,7 @@
 
 In this endpoint you provide the described schema, and the query text, and the result will be the interpreted query (in the generalized format)
 
-**URL** : `https://api.query.quantleaf.com/query`
+**URL** : `https://api.query.quantleaf.com/translate`
 
 **Method** : `POST`
 
@@ -28,17 +28,34 @@ The schemas below are provided in Javascript format.
 ```javascript
 {
     "text": string, 
-    "schemas": Schema[] 
+    "schemas": Schema[]
+    "query": {}
+    "suggest": { "limit": number }
+
     "languageFilter": LanguageCode[]
     "fuzzy": boolean
-    "concurrencySize": number
+    "concurrencySize": number,
+    
 }
 ```
 
 *text* 
 
 The query text.
-**Limitation: max 1000 characters.**
+**Limitation: max 200 characters.**
+
+
+*query (Optional conditional)*
+
+Query can either be an empty object '{}' or omitted. 
+If omitted, then no translated query will be created.
+If omitted *suggest* has to exist.
+
+*suggest (Optional conditional)*
+
+The suggest object lets you enable suggustion. If you provide a *limit* field, then the number suggestion will be limited to this limit. This option is preferred to use for performance reasons if you know in advance many suggestions you want.
+If omitted, then no suggestions will be created.
+If omitted *query* has to exist.
 
 
 *schemas*
@@ -55,7 +72,7 @@ If true, then we allow spelling erros of 25% amount. The spelling error can only
 
 If false, no spelling errors allowed.
 
-*concurrencySize (Optional* 
+*concurrencySize (Optional)* 
 
 This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be queried upon. 
 
@@ -234,6 +251,8 @@ or of you ignore providing language codes:
             }
         ]
     }]
+    "query": {}
+    "suggest": { "limit": 10 }
 }
 ```
 This example describes a schema with two fields, which is of enum type and have the same domain (city locations).
@@ -253,12 +272,13 @@ The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hen
 ### Entity (Request response)
 ```javascript
 {   
-    "queries": QueryWithSchema[],
+    "query": QueryWithSchema[],
+    "suggest": Suggestion:[],
     "unknown": Unknown[];
 }
 ```
 
-*queries*
+*query*
 
 The translated queries
 
@@ -274,20 +294,20 @@ The not understood parts of the query text. This field lets you create fallback 
 {
         
     "from": string[], 
-    "query": QueryCompare | QueryAnd | QueryOr
+    "condition": ConditionCompare | ConditionAnd | ConditionOr
 }
 ```
 *from*
 
 From what schema keys do this query originate from. This can be at most *concurrencySize* (property of the request) amount of keys. 
 
-*query*
+*condition*
 
-The query object contains all information about the query
+The condition object contains all information about the conditions of the query
 
 ---
 
-### Entity *QueryCompare*
+### Entity *ConditionCompare*
 ```javascript
 {
     "compare": Compare
@@ -343,10 +363,10 @@ Equal to.
 
 ---
 
-### Entity *QueryAnd*
+### Entity *ConditionAnd*
 ```javascript
 {
-    "and": (QueryCompare | QueryAnd | QueryOr)[]
+    "and": (ConditionCompare | ConditionAnd | ConditionOr)[]
 }
 ```
 
@@ -358,10 +378,10 @@ Each element of the array is 'and' conditional.
 
 ---
 
-### Entity *QueryOr*
+### Entity *ConditionOr*
 ```javascript
 {
-    "or": (QueryCompare | QueryAnd | QueryOr)[]
+    "or": (ConditionCompare | ConditionAnd | ConditionOr)[]
 }
 ```
 
@@ -370,32 +390,60 @@ Each element of the array is 'and' conditional.
 Each element of the array is 'or' conditional.
 
 ---
+### Entity *Suggestion*
+Suggestion object defines a suggestion
+
+```javascript
+{
+    "offset": number, 
+    "text": string 
+}
+```
+*offset*
+
+Start index. This index is most likely to be at the end of your text. This index tells you were to place the suggestion to build the complete suggestion text
+
+*text*
+
+The suggestion. 
+
+> Note: In order to build a complete suggestion you have to add the suggestion to your existing query text. For example if your query text is 'price' and one suggestion is
+>```javascript
+>{
+>    "offset": 5
+>    "text": ' less'
+>}
+>```
+>Then you need to insert the text ' less' at index 5 in 'price', so that the complete (readable) suggestion becomes 'price less'
+
+---
+
 
 ### Entity *Unknown*
 
 Unkown text location
 ```javascript
 {
-    "start": number, 
-    "end": number 
+    "offset": number, 
+    "length": number 
 }
 ```
 
 
-*start*
+*offset*
 
-Start index (including)
+Start index.
 
-*end*
+*length*
 
-End index (excluding)
+The length of the unknown text.
 
 
 > Note: The *Unkown* object describes the start and the end indices of the parts of the query text that has not been understood. For example 
 >```javascript
 >{
->    "start": 0
->    "end": 1
+>    "offset": 0
+>    "length": 1
 >}
 >```
 >means that the first character is unknown.
@@ -407,12 +455,12 @@ From the **Exampel Request** this was the response (the API was at used 2021-01-
 
 ```javascript
 {
-    "queries": [
+    "query": [
         {
             "from": [
                 "train-ticket"
             ],
-            "query": {
+            "condition": {
                 "and": [
                     {
                         "compare": {
@@ -460,12 +508,12 @@ From the **Exampel Request** this was the response (the API was at used 2021-01-
     ],
     "unknown": [
         {
-            "start": 0,
-            "end": 15
+            "offset": 0,
+            "length": 15
         },
         {
-            "start": 80,
-            "end": 83
+            "offset": 80,
+            "length": 3
         }
     ]
 }
