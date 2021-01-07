@@ -43,6 +43,10 @@ The schemas below are provided in Javascript format.
 The query text.
 **Limitation: max 200 characters.**
 
+*schemas*
+
+The schema objects, defining you database structure.
+
 
 *query (Optional conditional)*
 
@@ -57,9 +61,6 @@ If omitted, then no suggestions will be created.
 If omitted *query* has to exist.
 
 
-*schemas*
-
-The schema objects, defining you database structure.
 
 *languageFilter (Optional)*
 
