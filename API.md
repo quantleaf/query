@@ -31,7 +31,6 @@ The schemas below are provided in Javascript format.
     "schemas": Schema[]
     "query": {}
     "suggest": { "limit": number }
-
     "languageFilter": LanguageCode[]
     "fuzzy": boolean
     "concurrencySize": number,
