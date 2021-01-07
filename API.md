@@ -56,9 +56,9 @@ If omitted *suggest* has to exist.
 
 *suggest (Optional conditional)*
 
-The suggest object lets you enable suggustion. If you provide a *limit* field, then the number suggestion will be limited to this limit. This option is preferred to use for performance reasons if you know in advance many suggestions you want.
-If omitted, then no suggestions will be created.
-If omitted *query* has to exist.
+The suggest object lets you enable suggustion. If you provide a *limit* field, then the number suggestions will be limited to this limit. This option is preferred to use for performance reasons if you know in advance many suggestions you want.
+If the *suggest* field is omitted, then no suggestions will be created.
+If the *suggest* field is omitted then *query* field has to exist.
 
 
 
@@ -74,7 +74,7 @@ If false, no spelling errors allowed.
 
 *concurrencySize (Optional)* 
 
-This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. This pairs are then treated as a new schema, which can be queried upon. 
+This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. These pairs are then treated as a new schema, which can be queried upon. If this value is *3* then all pairs and triplets are evaluated and so on.
 
 Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
 
@@ -161,10 +161,11 @@ It is important that you spell right if you want an accurate translations.
 
 ---
 ### Entity *LanguageCode* 
-The supported language codes
+The supported language codes (ISO 639-1 standard).
+ 'ANY' language code is special and means any or all languages.
 
 ```javascript
-'EN' | 'SWE' | 'ANY' 
+'EN' | 'SV' | 'ANY' 
 ```
 
 ---
@@ -190,12 +191,12 @@ For example an *EnumDomain* could be
 ```javascript
 {
     'red' : {
-        'SWE' : 'röd',
+        'SV' : 'röd',
         'EN' : 'red'
     },
     'blue' : 
     {
-        'SWE' : 'blå',
+        'SV' : 'blå',
         'EN' : 'blue'
     }
 }
