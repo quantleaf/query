@@ -215,17 +215,24 @@ or of you ignore providing language codes:
 
 ```javascript
 {
-    "text": "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks", 
+    "text": "I want to buy a ticket for less than 100 bucks in 10 days from stockholm or gothenburg to", 
     "schemas" : [{
         "name": {
-            "key": "train-ticket",
-            "description": "Train ticket"
+            "key": "airplane-ticket",
+            "description": "Airplane ticket"
         },
         "fields": [
             {
-                "key": "from",
+                "key": "departureLocation",
                 "description" : "From",
-                "domain": ["Stockholm", "London", "Paris"]
+                "domain": {
+                    "STOCKHOLM": "Stockholm",
+                    "GOTHENBURG": 
+                    {
+                        "SV": "Göteborg",
+                        "EN": "Gothenburg"
+                    }
+                }
             },
             {
                 "key": "currency",
@@ -238,10 +245,13 @@ or of you ignore providing language codes:
             {
                 "key": "to",
                 "description" : "To",
-                "domain": ["Stockholm", "London", "Paris"]
+                "domain": {
+                    "LONDON": "London",
+                    "PARIS" : "Paris"
+                }
             },
             {
-                "key": "from",
+                "key": "departureDate",
                 "description" : ["From","When","Date of departure"],
                 "domain": "DATE"
             },
@@ -251,17 +261,18 @@ or of you ignore providing language codes:
                 "domain": "NUMBER"
             }
         ]
-    }]
-    "query": {}
+    }],
+    "query": {},
     "suggest": { "limit": 10 }
 }
+
 ```
-This example describes a schema with two fields, which is of enum type and have the same domain (city locations).
-The key describes the value which the user use to denote the field.
-In this case the API will understand that 
-'from Stockholm' means thay the field we are interested in is with the key 'from', and that the value is Stockholm which is in the domain.
+This example describes a translation of a non-complete query text (the last word in the text is 'to').
+The example has a schema with 5 fields, and as we include both *query* and *suggest* we will obtain the query translation as well as suggestions when performing this request. 
 
 The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hence assumed to be the default values.
+
+*See Example Response* for the result of this request.
 
 ## Success Response
 
@@ -451,56 +462,50 @@ The length of the unknown text.
 
 
 ## Example response
-From the **Exampel Request** this was the response (the API was at used 2021-01-03).
-*The query text was "I want to buy a train ticket from stockholm to london or paris 10 days from now for less than 100 bucks"*
+From the **Exampel request** this was the response (the API was at used 2021-01-03).
+*The query text was "I want to buy a ticket for less than 100 bucks in 10 days from stockholm or gothenburg to"*
 
 ```javascript
 {
     "query": [
         {
             "from": [
-                "train-ticket"
+                "airplane-ticket"
             ],
             "condition": {
-                "and": [
+                "or": [
                     {
-                        "compare": {
-                            "key": "from",
-                            "eq": "Stockholm"
-                        }
-                    },
-                    {
-                        "or": [
+                        "and": [
                             {
                                 "compare": {
-                                    "key": "to",
-                                    "eq": "London"
+                                    "key": "price",
+                                    "lt": 100
                                 }
                             },
                             {
                                 "compare": {
-                                    "key": "to",
-                                    "eq": "Paris"
+                                    "key": "currency",
+                                    "eq": "USD"
+                                }
+                            },
+                            {
+                                "compare": {
+                                    "key": "departureDate",
+                                    "eq": 1610885095000
+                                }
+                            },
+                            {
+                                "compare": {
+                                    "key": "departureLocation",
+                                    "eq": "STOCKHOLM"
                                 }
                             }
                         ]
                     },
                     {
                         "compare": {
-                            "key": "from",
-                            "eq": 1610562689000
-                        }
-                    },
-                    {
-                        "compare": {
-                            "key": "price",
-                            "lt": 100
-                        }
-                    },
-                    {
-                        "compare": {
-                            "key": "currency",
-                            "eq": "USD"
+                            "key": "departureLocation",
+                            "eq": "GOTHENBURG"
                         }
                     }
                 ]
@@ -510,11 +515,49 @@ From the **Exampel Request** this was the response (the API was at used 2021-01-
     "unknown": [
         {
             "offset": 0,
-            "length": 15
+            "length": 26
+        }
+    ],
+    "suggest": [
+        {
+            "offset": 90,
+            "text": "London"
         },
         {
-            "offset": 80,
-            "length": 3
+            "offset": 90,
+            "text": "Paris"
+        },
+        {
+            "offset": 90,
+            "text": "123"
+        },
+        {
+            "offset": 90,
+            "text": "2021-01-07"
+        },
+        {
+            "offset": 90,
+            "text": "equal"
+        },
+        {
+            "offset": 90,
+            "text": "Gothenburg"
+        },
+        {
+            "offset": 90,
+            "text": "SEK"
+        },
+        {
+            "offset": 90,
+            "text": "Stockholm"
+        },
+        {
+            "offset": 90,
+            "text": "USD"
+        },
+        {
+            "offset": 90,
+            "text": "Currency"
         }
     ]
 }
