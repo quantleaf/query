@@ -56,7 +56,7 @@ If omitted *suggest* has to exist.
 
 *suggest (Optional conditional)*
 
-The suggest object lets you enable suggustion. If you provide a *limit* field, then the number suggestions will be limited to this limit. This option is preferred to use for performance reasons if you know in advance many suggestions you want.
+The suggest object lets you enable suggestions. If you provide a *limit* field, then the number suggestions will be limited to this limit. This option is preferred to use if your want to optimize for lowest possible latency, if you know in advance many suggestions you want.
 If the *suggest* field is omitted, then no suggestions will be created.
 If the *suggest* field is omitted then *query* field has to exist.
 
@@ -257,7 +257,7 @@ or of you ignore providing language codes:
             },
             {
                 "key": "price",
-                "description" : ["Price", "pris"],
+                "description" : ["Price", "Pris"],
                 "domain": "NUMBER"
             }
         ]
