@@ -294,7 +294,11 @@ The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hen
 
 The translated queries
 
-*unkown*
+*suggest* 
+
+The suggestions. Each element represent one suggestion. Suggestions are ordered in relevance (most relavent first). If two suggestions are equally relavent, they are ordered alphabetically.
+
+*unknown*
 
 The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unkown, for example 
 'I want the price to be less than 10 dollar' will have three unknown sections 'I want the' and 'to be' (because the words does not provide any value) and 'dollar' since the API currently does not support currencies associated directly with numeric values. 
@@ -462,7 +466,7 @@ The length of the unknown text.
 
 
 ## Example response
-From the **Exampel request** this was the response (the API was at used 2021-01-03).
+From the **Exampel request** this was the response (the API was at used 2021-01-08).
 *The query text was "I want to buy a ticket for less than 100 bucks in 10 days from stockholm or gothenburg to"*
 
 ```javascript
@@ -473,40 +477,40 @@ From the **Exampel request** this was the response (the API was at used 2021-01-
                 "airplane-ticket"
             ],
             "condition": {
-                "or": [
+                "and": [
                     {
-                        "and": [
-                            {
-                                "compare": {
-                                    "key": "price",
-                                    "lt": 100
-                                }
-                            },
-                            {
-                                "compare": {
-                                    "key": "currency",
-                                    "eq": "USD"
-                                }
-                            },
-                            {
-                                "compare": {
-                                    "key": "departureDate",
-                                    "eq": 1610885095000
-                                }
-                            },
+                        "compare": {
+                            "key": "price",
+                            "lt": 100
+                        }
+                    },
+                    {
+                        "compare": {
+                            "key": "currency",
+                            "eq": "USD"
+                        }
+                    },
+                    {
+                        "compare": {
+                            "key": "departureDate",
+                            "eq": 1610963272000
+                        }
+                    },
+                    {
+                        "or": [
                             {
                                 "compare": {
                                     "key": "departureLocation",
                                     "eq": "STOCKHOLM"
                                 }
+                            },
+                            {
+                                "compare": {
+                                    "key": "departureLocation",
+                                    "eq": "GOTHENBURG"
+                                }
                             }
                         ]
-                    },
-                    {
-                        "compare": {
-                            "key": "departureLocation",
-                            "eq": "GOTHENBURG"
-                        }
                     }
                 ]
             }
@@ -516,6 +520,10 @@ From the **Exampel request** this was the response (the API was at used 2021-01-
         {
             "offset": 0,
             "length": 26
+        },
+        {
+            "offset": 87,
+            "length": 2
         }
     ],
     "suggest": [
@@ -533,7 +541,7 @@ From the **Exampel request** this was the response (the API was at used 2021-01-
         },
         {
             "offset": 90,
-            "text": "2021-01-07"
+            "text": "2021-01-08"
         },
         {
             "offset": 90,
