@@ -493,7 +493,7 @@ From the **Exampel request** this was the response (the API was at used 2021-01-
                     {
                         "compare": {
                             "key": "departureDate",
-                            "eq": 1610963272000
+                            "eq": 1610991460000
                         }
                     },
                     {
@@ -528,44 +528,44 @@ From the **Exampel request** this was the response (the API was at used 2021-01-
     ],
     "suggest": [
         {
-            "offset": 90,
-            "text": "London"
+            "offset": 89,
+            "text": " London"
         },
         {
-            "offset": 90,
-            "text": "Paris"
+            "offset": 89,
+            "text": " Paris"
         },
         {
-            "offset": 90,
-            "text": "123"
+            "offset": 89,
+            "text": " 123"
         },
         {
-            "offset": 90,
-            "text": "2021-01-08"
+            "offset": 89,
+            "text": " 2021-01-08"
         },
         {
-            "offset": 90,
-            "text": "equal"
+            "offset": 89,
+            "text": " equal"
         },
         {
-            "offset": 90,
-            "text": "Gothenburg"
+            "offset": 89,
+            "text": " Gothenburg"
         },
         {
-            "offset": 90,
-            "text": "SEK"
+            "offset": 89,
+            "text": " SEK"
         },
         {
-            "offset": 90,
-            "text": "Stockholm"
+            "offset": 89,
+            "text": " Stockholm"
         },
         {
-            "offset": 90,
-            "text": "USD"
+            "offset": 89,
+            "text": " USD"
         },
         {
-            "offset": 90,
-            "text": "Currency"
+            "offset": 89,
+            "text": " Currency"
         }
     ]
 }
