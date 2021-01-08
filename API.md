@@ -300,8 +300,8 @@ The suggestions. Each element represent one suggestion. Suggestions are ordered 
 
 *unknown*
 
-The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unkown, for example 
-'I want the price to be less than 10 dollar' will have three unknown sections 'I want the' and 'to be' (because the words does not provide any value) and 'dollar' since the API currently does not support currencies associated directly with numeric values. 
+The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unknown, for example 
+'I want the price to be less than 10' will have three unknown sections 'I want the' and 'to be' (because the words does not provide any value).
 
 
 ---
