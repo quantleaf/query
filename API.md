@@ -1,6 +1,6 @@
 # Endpoint: Translate text to query format
 
-In this endpoint you provide the described schema, and the query text, and the result will be the interpreted query (in the generalized format)
+With this endpoint you provide a query text, "described" schema and you will retrieve the interpreted query, in a generalized format.
 
 **URL** : `https://api.query.quantleaf.com/translate`
 
