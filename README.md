@@ -1,5 +1,3 @@
-# WIP (!)
-
 # Quantleaf Query
 Quantleaf Query is a query translation tool that lets you translate natural language into standardized query formats. The tool is semi-supervised and is easy to use, the procedure is outlined below. 
 
@@ -13,10 +11,10 @@ The project is currently in demo phase. This means that API could undergo breaki
 ### Request API key
 Create and account and request an API key at [account.quantleaf.com](https://account.quantleaf.com)
 
-### Node
+### Using Node
 You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-sdk-node) to perform (1) and (2).
 
-### Any programming language
+### Using Any programming language
 You can use our API directly to perform (1) and (2). 
 Read the [API documentation](API.md)
 
