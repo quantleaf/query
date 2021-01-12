@@ -14,10 +14,9 @@ Create and account and request an API key at [account.quantleaf.com](https://acc
 ### Using Node
 You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-sdk-node) to perform (1) and (2).
 
-### Using Any programming language
+### Using any programming language
 You can use our API directly to perform (1) and (2). 
 Read the [API documentation](API.md)
 
-
 ## Questions, feature requests, problems? 
-Create an [issue](https://github.com/quantleaf/query/issues) on this repository.
+Create an [issue](https://github.com/quantleaf/query/issues) .
