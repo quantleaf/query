@@ -1,4 +1,4 @@
-# Quantleaf Query
+# Quantleaf Query documentation
 Quantleaf Query is a query translation tool that lets you translate natural language into standardized query formats. The tool is semi-supervised and is easy to use, the procedure is outlined below. 
 
 1. Desribe your schema.
