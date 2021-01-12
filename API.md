@@ -108,7 +108,7 @@ The fields of the schema.
 {
     "key": string
     "description": SimpleDescription 
-    "domain": StandardDomainType | EnumDomain 
+    "domain": StandardDomain | EnumDomain 
 }
 ```
 *key* 
@@ -169,7 +169,7 @@ The supported language codes (ISO 639-1 standard).
 ```
 
 ---
-### Entity *StandardDomainType* 
+### Entity *StandardDomain* 
 The supported domains by type
 
 ```javascript
