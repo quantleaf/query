@@ -1,4 +1,5 @@
-# Endpoint: Translate text to query format
+# API documentation
+## Endpoint: Translate text to query format
 
 With this endpoint you provide a query text, "described" schema and you will retrieve the interpreted query, in a generalized format.
 
