@@ -7,7 +7,7 @@ Quantleaf Query is a query translation tool that lets you translate natural lang
 3. Interact with the generalized query structure. As an example one can apply a transformation so that SQL or Elasticsearch Query format is obtained. 
 
 ### Request API key
-Create and account and request an API key at [account.quantleaf.com](https://account.quantleaf.com)
+Create an account and request an API key at [account.quantleaf.com](https://account.quantleaf.com)
 
 ### Using Node
 You can use [Quantleaf Query SDK for Node](https://github.com/quantleaf/query-sdk-node) to perform (1) and (2).

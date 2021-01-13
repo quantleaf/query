@@ -29,12 +29,12 @@ The schemas below are provided in Javascript format.
 ```javascript
 {
     "text": string, 
-    "schemas": Schema[]
-    "query": {}
-    "suggest": { "limit": number }
-    "languageFilter": LanguageCode[]
-    "fuzzy": boolean
-    "concurrencySize": number,
+    "schemas": Schema[],
+    "query": {},
+    "suggest": { "limit": number },
+    "languageFilter": LanguageCode[],
+    "fuzzy": boolean,
+    "concurrencySize": number
     
 }
 ```
@@ -107,8 +107,8 @@ The fields of the schema.
 ### Entity *Field*
 ```javascript
 {
-    "key": string
-    "description": SimpleDescription 
+    "key": string,
+    "description": SimpleDescription,
     "domain": StandardDomain | EnumDomain 
 }
 ```
@@ -128,7 +128,7 @@ The domain defines what values are allowed for this field.
 ### Entity *KeyWithDescriptions*
 ```javascript
 {
-    "key": string
+    "key": string,
     "description": SimpleDescription 
 }
 ```
@@ -287,7 +287,7 @@ The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hen
 {   
     "query": QueryWithSchema[],
     "suggest": Suggestion:[],
-    "unknown": Unknown[];
+    "unknown": Unknown[]
 }
 ```
 
