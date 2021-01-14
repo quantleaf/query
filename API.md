@@ -79,8 +79,7 @@ This value indicates how many schemas can be searched at once. What this means i
 
 Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
 
-With a value of 1 you can still make multiple queries per query text, but one query can only refer to one schema.
-
+Currently one text can only be translated into one query.
 
 **Overall limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
 
