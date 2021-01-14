@@ -89,7 +89,7 @@ Currently one text can only be translated into one query.
 ### Entity *Schema*
 ```javascript
 {
-    "name": KeyWithDescriptions
+    "name": KeyWithDescriptions,
     "fields": Field[] 
 }
 ```
