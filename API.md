@@ -30,11 +30,17 @@ The schemas below are provided in Javascript format.
 {
     "text": string, 
     "schemas": Schema[],
-    "query": {},
-    "suggest": { "limit": number },
-    "languageFilter": LanguageCode[],
-    "fuzzy": boolean,
-    "concurrencySize": number
+    "actions": {
+        "query": {},
+        "suggest": { "limit": number },
+    },
+    "options" : {
+        "fuzzy": boolean,
+        "concurrencySize": number,
+        "languageFilter": LanguageCode[]
+    }
+   
+    
     
 }
 ```
@@ -49,37 +55,40 @@ The query text.
 The schema objects, defining you database structure.
 
 
-*query (Optional conditional)*
+*actions* > *query (Optional conditional)*
 
 Query can either be an empty object '{}' or omitted. 
 If omitted, then no translated query will be created.
 If omitted *suggest* has to exist.
 
-*suggest (Optional conditional)*
+*actions* > *suggest (Optional conditional)*
 
 The suggest object lets you enable suggestions. If you provide a *limit* field, then the number suggestions will be limited to this limit. This option is preferred to use if your want to optimize for lowest possible latency, if you know in advance many suggestions you want.
 If the *suggest* field is omitted, then no suggestions will be created.
 If the *suggest* field is omitted then *query* field has to exist.
 
 
-
-*languageFilter (Optional)*
+*options* > *languageFilter (Optional)*
 
 Specify allowed languages. Default is all languages.
 
-*fuzzy (Optional)*
+*options* > *fuzzy (Optional)*
 
 If true, then we allow spelling erros of 25% amount. The spelling error can only occur on the end of the words. 
 
 If false, no spelling errors allowed.
 
-*concurrencySize (Optional)* 
+*options* > *concurrencySize (Optional)* 
 
 This value indicates how many schemas can be searched at once. What this means is that if this value is *2* then all possible pairs of schemas are evaluated where common fields exist. These pairs are then treated as a new schema, which can be queried upon. If this value is *3* then all pairs and triplets are evaluated and so on.
 
 Default value is 1 (no concurrency). A value of -1 indicates that the concurrency value is set to be equal to the amount of schemas (all possible schema combinations are found).
 
 Currently one text can only be translated into one query.
+
+*options* > *nestedConditions (Optional)* 
+If false, disables ability to use OR and nested conditions in the query (nested conditions are the ones that you can build with OR and parenthesis)).
+Default value is true.
 
 **Overall limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
 
@@ -262,15 +271,18 @@ or of you ignore providing language codes:
             }
         ]
     }],
-    "query": {},
-    "suggest": { "limit": 10 }
+    "actions": 
+    {
+        "query": {},
+        "suggest": { "limit": 10 }
+    }
 }
 
 ```
 This example describes a translation of a non-complete query text (the last word in the text is 'to').
 The example has a schema with 5 fields, and as we include both *query* and *suggest* we will obtain the query translation as well as suggestions when performing this request. 
 
-The fields *fuzzy*, *languageFilter* and *concurrencySize* have been omitted hence assumed to be the default values.
+The fields in *options* have been omitted hence assumed to be the default values.
 
 *See Example Response* for the result of this request.
 
