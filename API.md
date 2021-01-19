@@ -39,9 +39,6 @@ The schemas below are provided in Javascript format.
         "concurrencySize": number,
         "languageFilter": LanguageCode[]
     }
-   
-    
-    
 }
 ```
 
@@ -87,7 +84,8 @@ Default value is 1 (no concurrency). A value of -1 indicates that the concurrenc
 Currently one text can only be translated into one query.
 
 *options* > *nestedConditions (Optional)* 
-If false, disables ability to use OR and nested conditions in the query (nested conditions are the ones that you can build with OR and parenthesis)).
+
+If false, disables ability to write 'or' and nested conditions in the query (nested conditions are the ones that you can build with 'or' and parenthesis)).
 Default value is true.
 
 **Overall limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
