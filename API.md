@@ -32,12 +32,11 @@ The schemas below are provided in Javascript format.
     "schemas": Schema[],
     "actions": {
         "query": {},
-        "suggest": { "limit": number },
+        "suggest": { "limit": number, "offset": number },
     },
     "options" : {
         "fuzzy": boolean,
-        "concurrencySize": number,
-        "languageFilter": LanguageCode[]
+        "concurrencySize": number
     }
 }
 ```
@@ -61,13 +60,10 @@ If omitted *suggest* has to exist.
 *actions* > *suggest (Optional conditional)*
 
 The suggest object lets you enable suggestions. If you provide a *limit* field, then the number suggestions will be limited to this limit. This option is preferred to use if your want to optimize for lowest possible latency, if you know in advance many suggestions you want.
+*offset* field is optional and determines at what position (caret position) in the search query you want to generate suggestions for. Default is end of the string (*total length - 1*).
 If the *suggest* field is omitted, then no suggestions will be created.
 If the *suggest* field is omitted then *query* field has to exist.
 
-
-*options* > *languageFilter (Optional)*
-
-Specify allowed languages. Default is all languages.
 
 *options* > *fuzzy (Optional)*
 
@@ -90,7 +86,7 @@ Default value is true.
 
 **Overall limitations: Total number of fields has to be less than 250. If the *concurrencySize* is greater than 1 then you can not calcuate the total number of fields by summing the fields of each schema, instead write and perform a test request and see whether you schemas are compatible with this limit.**
 
-> Note: Latency is highly dependent of the total amount of schema fields. Performance might potentielly improve by introducing language filters and/or set the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
+> Note: Latency is highly dependent of the total amount of schema fields. Performance might potentielly improve by setting the *fuzzy* parameter to *false* as the probability of finding a query decreases. However keep in mind that having a large language space (cover multiple languages and handle spelling errors) is something that can truly enhance the quality of the services using this endpoint.
 
 ---
 ### Entity *Schema*
