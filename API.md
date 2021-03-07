@@ -296,7 +296,8 @@ The fields in *options* have been omitted hence assumed to be the default values
 {   
     "query": QueryWithSchema[],
     "suggest": Suggestion:[],
-    "unknown": Unknown[]
+    "unknown": Unknown[],
+    "score": number
 }
 ```
 
@@ -313,6 +314,9 @@ The suggestions. Each element represent one suggestion. Suggestions are ordered 
 The not understood parts of the query text. This field lets you create fallback behaviour if you notice that most of the query is not understood/interpreted. Some parts that you might think is obvious could for the Quantleaf Query API be unknown, for example 
 'I want the price to be less than 10' will have two unknown sections 'I want the' and 'to be' (because the words does not provide any value).
 
+*score* 
+
+The score of the translation. This is a measure of confidence, ranging from 0 to infinity.
 
 ---
 ### Entity *QueryWithSchema*
